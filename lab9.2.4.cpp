@@ -3,7 +3,6 @@
 #include <ctype.h>
 
 int checkLogin(char *login, char *passwd);
-//accepted only if Length = 5 and a number 1 or more digits
 int checkValidPass(char *ps);
 
 int main() {
@@ -27,19 +26,22 @@ int checkValidPass(char *ps) {
 	int upper=0;
 	int digit=0;
 	int len=strlen(ps);
+	char sameupper[26]={0};
 	if(len>=5&& len<=8){
-		if(!isdigit(ps[0])){
-			for(int i=0; i<len; i++){
-				if(isupper(ps[i])){
+		for(int i=0; i<len; i++){
+			if(isupper(ps[i])){
 				upper++;
+				if(sameupper[ps[i]-'A']==1){
+					return 0;
 				}
-				if(isdigit(ps[i])){
-					digit++;
-				}
+				sameupper[ps[i]-'A']=1;
 			}
-			if(upper>=2&&digit>=2){
-				accepted=1 ;
+			if(isdigit(ps[i])){
+				digit++;
 			}
+		}
+		if(upper>=2&&digit>=2){
+			accepted=1 ;
 		}
 	}
 	return accepted;
@@ -50,4 +52,5 @@ int checkLogin(char *login, char *passwd) {
 	else
 		return 0;
 }
+
 
