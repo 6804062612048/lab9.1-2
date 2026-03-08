@@ -24,16 +24,22 @@ int main() {
 }
 int checkValidPass(char *ps) {
 	int accepted=0;
-	int has=0;
-	if(strlen(ps)==5){
-		for(int i=0; i<5; i++){
-			if(isdigit(ps[i])){
-				has=1;
-				break;
+	int upper=0;
+	int digit=0;
+	int len=strlen(ps);
+	if(len>=5&& len<=8){
+		if(!isdigit(ps[0])){
+			for(int i=0; i<len; i++){
+				if(isupper(ps[i])){
+				upper++;
+				}
+				if(isdigit(ps[i])){
+					digit++;
+				}
 			}
-		}
-		if(has){
-			accepted=1;
+			if(upper>=2&&digit>=2){
+				accepted=1 ;
+			}
 		}
 	}
 	return accepted;
@@ -44,3 +50,4 @@ int checkLogin(char *login, char *passwd) {
 	else
 		return 0;
 }
+
